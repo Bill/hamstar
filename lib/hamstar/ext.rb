@@ -1,0 +1,1 @@
+require 'hamstar/ext/hamster'
