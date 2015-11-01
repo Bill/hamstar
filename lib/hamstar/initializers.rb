@@ -1,0 +1,1 @@
+require 'hamstar/initializers/hamster'

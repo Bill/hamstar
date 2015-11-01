@@ -17,6 +17,10 @@ RSpec.describe Hamstar do
     [ [{a:1},{a:2}],[:'*', :a], ->(v){v+1}, [{a:2},{a:3}], 'Hash underneath Vector']
   ]
 
+  examples_associative = [
+    [ [{name:'Chris'},{name:'Pat'}], [ [:name, 'Pat'], :name ], ->(name){name<<'sy'}, [{name:'Chris'},{name:'Patsy'}], 'modify matching Hash']
+  ]
+
   def self.write_examples(examples)
     examples.each do |e|
       it e[4] do
@@ -27,11 +31,14 @@ RSpec.describe Hamstar do
     end
   end
 
-  describe 'Hamster update_in functionality' do
+  describe 'Inherited Hamster update_in functionality' do
     write_examples examples_update_in_regression
   end
-  describe 'New kleene star functionality' do
+  describe 'New kleene star' do
     write_examples examples_kleene_star
+  end
+  describe 'New association matching' do
+    write_examples examples_associative
   end
 
   # it 'traverses hash by key/value pair' do

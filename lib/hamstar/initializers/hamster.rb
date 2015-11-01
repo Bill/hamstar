@@ -9,5 +9,10 @@ module Hamster
     def values
       self
     end
+    def each_pair
+      each_with_index do |v,i|
+        yield i,v
+      end
+    end
   end
 end
