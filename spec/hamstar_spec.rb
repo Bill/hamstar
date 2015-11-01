@@ -11,10 +11,10 @@ RSpec.describe Hamstar do
     [ [1,{b:2}],    [1,:b],    ->(v){v+1}, [1,{b:3}],     'traverses Vector of Hash'],
   ]
   examples_kleene_star = [
-    [ {a:1,b:2},    [:'*'],     ->(v){v+1}, {a:2,b:3},     'top level Hash'],
-    [ [1,2],        [:'*'],     ->(v){v+1}, [2,3],         'top level Vector'],
-    [ {a:[1],b:[2]},[:'*', 0],  ->(v){v+1}, {a:[2],b:[3]}, 'Vector underneath Hash'],
-    [ [{a:1},{a:2}],[:'*', :a], ->(v){v+1}, [{a:2},{a:3}], 'Hash underneath Vector']
+    [ {a:1,b:2},    ['*'],     ->(v){v+1}, {a:2,b:3},     'top level Hash'],
+    [ [1,2],        ['*'],     ->(v){v+1}, [2,3],         'top level Vector'],
+    [ {a:[1],b:[2]},['*', 0],  ->(v){v+1}, {a:[2],b:[3]}, 'Vector underneath Hash'],
+    [ [{a:1},{a:2}],['*', :a], ->(v){v+1}, [{a:2},{a:3}], 'Hash underneath Vector']
   ]
 
   examples_associative = [

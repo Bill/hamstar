@@ -4,7 +4,7 @@ require 'hamster'
 
 module Hamstar
 
-  KLEENE_STAR = :'*'
+  KLEENE_STAR = '*'
 
   module_function
 

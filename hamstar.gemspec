@@ -6,10 +6,10 @@ require 'hamstar/version'
 Gem::Specification.new do |spec|
   spec.name          = "hamstar"
   spec.version       = Hamstar::VERSION
-  spec.authors       = ["Bill"]
+  spec.authors       = ["Bill Burcham"]
   spec.email         = ["bill.burcham@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Hamstar Transforms Immutable Ruby Collections Better}
+  spec.description   = %q{Hamstar.update_having() lets you transform deep amalgamations of Hamster (immutable) Hash and Vector with all the features of update_in() plus associative selection [key,val] and Kleene star '*'}
   spec.homepage      = ""
   spec.license       = "MIT"
 
