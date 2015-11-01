@@ -7,8 +7,8 @@ RSpec.describe Hamstar do
   examples_update_in_regression = [
     [ {a:1},        [:b],      ->(v){2},   {a:1,b: 2},    'adds values for keys not already in Hash'],
     [ [1],          [1],       ->(v){2},   [1,2],         'adds values for offsets not already in Vector'],
-    [ {a:1,b:[1,2]},[:b,1],    ->(v){v+1}, {a:1,b:[1,3]}, 'traverses Hash of Vector by key'],
-    [ [1,{b:2}],    [1,:b],    ->(v){v+1}, [1,{b:3}],     'traverses Vector of Hash by key'],
+    [ {a:1,b:[1,2]},[:b,1],    ->(v){v+1}, {a:1,b:[1,3]}, 'traverses Hash of Vector'],
+    [ [1,{b:2}],    [1,:b],    ->(v){v+1}, [1,{b:3}],     'traverses Vector of Hash'],
   ]
   examples_kleene_star = [
     [ {a:1,b:2},    [:'*'],     ->(v){v+1}, {a:2,b:3},     'top level Hash'],
@@ -38,6 +38,5 @@ RSpec.describe Hamstar do
   #   x = Hamster.from( [{name: 'Chris', home: 'Seattle'},{name: 'Pat', home: 'Portland'}] )
   #   y = Hamstar.update_having( )
   # end
-
 
 end
