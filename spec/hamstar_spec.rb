@@ -41,9 +41,4 @@ RSpec.describe Hamstar do
     write_examples examples_associative
   end
 
-  # it 'traverses hash by key/value pair' do
-  #   x = Hamster.from( [{name: 'Chris', home: 'Seattle'},{name: 'Pat', home: 'Portland'}] )
-  #   y = Hamstar.update_having( )
-  # end
-
 end
