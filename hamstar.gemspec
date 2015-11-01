@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["bill.burcham@gmail.com"]
   spec.summary       = %q{Hamstar Transforms Immutable Ruby Collections Better}
   spec.description   = %q{Hamstar.update_having() lets you transform deep amalgamations of Hamster (immutable) Hash and Vector with all the features of update_in() plus associative selection [key,val] and Kleene star '*'}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/Bill/hamstar"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
