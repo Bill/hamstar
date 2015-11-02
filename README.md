@@ -27,24 +27,31 @@ With plain old `update_in()` you can:
 
 ```ruby
 require 'hamster'
-x = [{name:'Chris', hobbies:['clarinet']},{name:'Pat',hobbies:['bird watching','rugby']}]
-Hamster.from(x).update_in(1,:name){|name| 'Patsy'}
+x = Hamster.from([{name:'Chris', hobbies:['clarinet']},{name:'Pat',hobbies:['bird watching','rugby']}])
+x.update_in(1,:name){|name| 'Patsy'}
 => Hamster::Vector[Hamster::Hash[:hobbies => Hamster::Vector["clarinet"], :name => "Chris"], Hamster::Hash[:hobbies => Hamster::Vector["bird watching", "rugby"], :name => "Patsy"]]
 ```
 
-With Hamstar you can write code that is a little more flexibly:
+You can do the exact same thing with Hamstar's `update_having()`:
 
 ```ruby
 require 'hamstar'
-Hamstar.update_having( Hamster.from(x), 1,:name){|name| 'Patsy'}
+Hamstar.update_having( x, 1,:name){|name| 'Patsy'}
 => (same result as before)
 ```
 
 And you can go further, and replace the vector offset `1` with the Kleene star `'*'` to operate on all elements of the vector:
 
 ```ruby
-Hamstar.update_having( Hamster.from(x), '*',:name){|name| 'Patsy'}
-=> (same result as before)
+Hamstar.update_having( x, '*',:name){|name| name + 'sy'}
+=> Hamster::Vector[Hamster::Hash[:name => "Chrissy", :hobbies => Hamster::Vector["clarinet"]], Hamster::Hash[:name => "Patsy", :hobbies => Hamster::Vector["bird watching", "rugby"]]]
+```
+
+And what if you wanted to efficiently replace every 'Pat' with 'Patsy', without having to add conditional code to your block? Hamstar let's you use a key/value pair as part of your path specification:
+
+```ruby
+Hamstar.update_having( x, [:name,'Pat'],:name){|name| 'Patsy'}
+=> Hamster::Vector[Hamster::Hash[:name => "Chris", :hobbies => Hamster::Vector["clarinet"]], Hamster::Hash[:name => "Patsy", :hobbies => Hamster::Vector["bird watching", "rugby"]]]
 ```
 
 See [`hamstar_spec.rb`](file://spec/hamstar_spec.rb) for more examples.
