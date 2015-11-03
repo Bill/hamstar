@@ -5,6 +5,8 @@ require 'hamster'
 module Hamstar
 
   KLEENE_STAR = '*'
+  MATCH_KLEENE_STAR = ->(k,v,expr){true}
+  MATCH_ASSOCIATION = ->(k,v,expr){key,value=expr; v[key] == value}
 
   module_function
 
@@ -14,8 +16,8 @@ module Hamstar
     end
     key = key_path[0]
     case key
-    when KLEENE_STAR; kleene_star c, *key_path, &block
-    when Array, Hamster::Vector; association c, *key_path, &block
+    when KLEENE_STAR; match MATCH_KLEENE_STAR, c, *key_path, &block
+    when Array, Hamster::Vector; match MATCH_ASSOCIATION, c, *key_path, &block
     else
       if key_path.size == 1
         new_value = block.call c.fetch(key,nil)
@@ -27,7 +29,7 @@ module Hamstar
     end
   end
 
-  def match(c, *key_path, matcher, &block)
+  def match(matcher, c, *key_path, &block)
     expr = key_path[0]
     kp_rest = Hamster.from(key_path)[1..-1] # drop expr
     c.each_pair do |key,value|
@@ -37,14 +39,6 @@ module Hamstar
       end
     end
     c
-  end
-
-  def kleene_star(c, *key_path, &block)
-    match(c,*key_path,->(k,v,expr){true},&block)
-  end
-
-  def association(c, *key_path, &block)
-    match(c,*key_path,->(k,v,expr){key,value=expr; v[key] == value},&block)
   end
 
 end
