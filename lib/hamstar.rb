@@ -16,6 +16,7 @@ module Hamstar
     end
     key = key_path[0]
     case key
+    when Proc; match key, c, *key_path, &block
     when KLEENE_STAR; match MATCH_KLEENE_STAR, c, *key_path, &block
     when Array, Hamster::Vector; match MATCH_ASSOCIATION, c, *key_path, &block
     else

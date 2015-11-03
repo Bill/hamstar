@@ -23,6 +23,10 @@ RSpec.describe Hamstar do
     [ [{name:'Chris'},{name:'Pat'}], [ [:name, 'Pat'], :name ], ->(name){name<<'sy'}, [{name:'Chris'},{name:'Patsy'}], 'modify matching Hash']
   ]
 
+  examples_function_match = [
+    [ [1,2], [->(k,v,expr){v==2}], ->(v){5}, [1,5] ]
+  ]
+
   def self.write_examples(examples)
     examples.each do |e|
       it e[4] do
@@ -41,6 +45,9 @@ RSpec.describe Hamstar do
   end
   describe 'New association matching' do
     write_examples examples_associative
+  end
+  describe 'New functional matching' do
+    write_examples examples_function_match
   end
 
 end
