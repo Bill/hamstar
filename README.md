@@ -54,6 +54,13 @@ Hamstar.update_having( x, [:name,'Pat'],:name){|name| 'Patsy'}
 => Hamster::Vector[Hamster::Hash[:name => "Chris", :hobbies => Hamster::Vector["clarinet"]], Hamster::Hash[:name => "Patsy", :hobbies => Hamster::Vector["bird watching", "rugby"]]]
 ```
 
+Finally, you can use a `Proc` as a matcher e.g.
+
+```ruby
+Hamstar.update_having( x, ->(k,v,expr){v[:name] == 'Pat'},:name){|name| 'Patsy'}
+ => Hamster::Vector[Hamster::Hash[:name => "Chris", :hobbies => Hamster::Vector["clarinet"]], Hamster::Hash[:name => "Patsy", :hobbies => Hamster::Vector["bird watching", "rugby"]]]
+```
+
 See [`hamstar_spec.rb`](file://spec/hamstar_spec.rb) for more examples.
 
 
