@@ -25,8 +25,8 @@ RSpec.describe Hamstar do
   ]
 
   examples_function_match = [
-    [ [{a:1},{b:1},{b:2}], ['*',->(k,v,expr){k==:b && v==2}], ->(v){5}, [{a:1},{b:1},{b:5}],'match a Hash'],
-    [ [[1,2],[3,4]],       ['*',->(k,v,expr){k==0&&v==3}],->(v){7}, [[1,2],[7,4]],          'match a Vector']
+    [ [{a:1},{b:1},{b:2}], ['*',->(k,v){k==:b && v==2}], ->(v){5}, [{a:1},{b:1},{b:5}],'match a Hash'],
+    [ [[1,2],[3,4]],       ['*',->(k,v){k==0&&v==3}],->(v){7}, [[1,2],[7,4]],          'match a Vector']
   ]
 
   def self.write_examples(examples)

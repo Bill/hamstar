@@ -5,8 +5,6 @@ require 'hamster'
 module Hamstar
 
   KLEENE_STAR = '*'
-  MATCH_KLEENE_STAR = ->(k,v,expr){true}
-  MATCH_ASSOCIATION = ->(k,v,expr){key,value=expr; v[key] == value}
 
   module_function
 
@@ -16,8 +14,8 @@ module Hamstar
     end
     matcher = match_path[0]
     case matcher
-    when KLEENE_STAR; match MATCH_KLEENE_STAR, c, *match_path, &block
-    when Array, Hamster::Vector; match MATCH_ASSOCIATION, c, *match_path, &block
+    when KLEENE_STAR; match ->(k,v){true}, c, *match_path, &block
+    when Array, Hamster::Vector; match ->(k,v){key,value=matcher; v[key] == value}, c, *match_path, &block
     when Proc; match matcher, c, *match_path, &block
     else
       if match_path.size == 1
@@ -31,10 +29,9 @@ module Hamstar
   end
 
   def match(matcher, c, *match_path, &block)
-    expr = match_path[0]
-    mp_rest = Hamster.from(match_path)[1..-1] # drop expr
+    mp_rest = Hamster.from(match_path)[1..-1] # drop first expr
     c.each_pair do |key,value|
-      if matcher.call key, value, expr
+      if matcher.call key, value
         mp = mp_rest.unshift key # put key where assoc was
         c = update_having c, *mp, &block
       end

@@ -1,6 +1,10 @@
 # Hamstar
 
+`Hamstar.update_having` is a `module_function` that works just like [Hamster update_in()](https://github.com/hamstergem/hamster#transformations) but with three additional ways to select container elements:
 
+1. the associative selector denoted by an array containing a key and a value e.g. `[:name,'Chris']`
+2. the Kleene star operator denoted by '*'
+3. generalized `Proc`-based matching e.g. you can supply a lambda directly in the path specification
 
 ## Installation
 
@@ -17,12 +21,6 @@ Or install it yourself as:
     $ gem install hamstar
 
 ## Usage
-
-`Hamstar.update_having` is a `module_function` that works just like [Hamster update_in()](https://github.com/hamstergem/hamster#transformations) but with three additional ways to select container elements:
-
-1. the associative selector denoted by an array containing a key and a value e.g. `[:name,'Chris']`
-2. the Kleen star operator denoted by '*'
-3. generalized `Proc`-based matching e.g. you can supply a lambda directly in the path specification
 
 With plain old `update_in()` you can:
 
@@ -58,7 +56,7 @@ Hamstar.update_having( x, [:name,'Pat'],:name){|name| 'Patsy'}
 Finally, you can use a `Proc` as a matcher. Here's an example that supplies a lambda inline:
 
 ```ruby
-Hamstar.update_having( x, ->(k,v,expr){v[:name] == 'Pat'},:name){|name| 'Patsy'}
+Hamstar.update_having( x, ->(k,v){v[:name] == 'Pat'},:name){|name| 'Patsy'}
  => Hamster::Vector[Hamster::Hash[:name => "Chris", :hobbies => Hamster::Vector["clarinet"]], Hamster::Hash[:name => "Patsy", :hobbies => Hamster::Vector["bird watching", "rugby"]]]
 ```
 
