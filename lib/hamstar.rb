@@ -32,7 +32,7 @@ module Hamstar
     mp_rest = Hamster.from(match_path)[1..-1] # drop first expr
     c.each_pair do |key,value|
       if matcher.call key, value
-        mp = mp_rest.unshift key # put key where assoc was
+        mp = mp_rest.unshift key # put key where expr was
         c = update_having c, *mp, &block
       end
     end

@@ -3,7 +3,7 @@
 `Hamstar.update_having` is a `module_function` that works just like [Hamster update_in()](https://github.com/hamstergem/hamster#transformations) but with three additional ways to select container elements:
 
 1. the associative selector denoted by an array containing a key and a value e.g. `[:name,'Chris']`
-2. the Kleene star operator denoted by '*'
+2. the Kleene star operator denoted by `'*'`
 3. generalized `Proc`-based matching e.g. you can supply a lambda directly in the path specification
 
 ## Installation
