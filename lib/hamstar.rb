@@ -27,25 +27,24 @@ module Hamstar
     end
   end
 
-  def kleene_star(c, *key_path, &block)
-    kp_rest = Hamster.from(key_path)[1..-1] # drop kleene star
-    c.keys.each do |key|
-      kp = kp_rest.unshift key # put key where kleene star was
-      c = update_having c, *kp, &block
-    end
-    c
-  end
-
-  def association(c, *key_path, &block)
-    key,value = key_path[0]
-    kp_rest = Hamster.from(key_path)[1..-1] # drop assoc
-    c.each_pair do |k,v|
-      if v[key] == value
-        kp = kp_rest.unshift k # put key where assoc was
+  def match(c, *key_path, matcher, &block)
+    expr = key_path[0]
+    kp_rest = Hamster.from(key_path)[1..-1] # drop expr
+    c.each_pair do |key,value|
+      if matcher.call key, value, expr
+        kp = kp_rest.unshift key # put key where assoc was
         c = update_having c, *kp, &block
       end
     end
     c
+  end
+
+  def kleene_star(c, *key_path, &block)
+    match(c,*key_path,->(k,v,expr){true},&block)
+  end
+
+  def association(c, *key_path, &block)
+    match(c,*key_path,->(k,v,expr){key,value=expr; v[key] == value},&block)
   end
 
 end
