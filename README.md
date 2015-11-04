@@ -6,6 +6,8 @@
 2. the associative selector denoted by an array containing a key and a value e.g. `[:name,'Chris']` your values will be compared to this one using the case comparison operator `===` so you can use Strings or regexps or other things that define `===` (such as classes and Ranges)
 3. generalized `Proc`-based matching e.g. you can supply a lambda directly in the path specification
 
+Quick-start instructions follow. For more background, see: [Hamstar Transforms Immutable Ruby Collections Better](http://memerocket.com/2015/11/01/hamstar-transforms-immutable-ruby-collections-better/).
+
 ## Installation
 
 Add this line to your application's Gemfile:
