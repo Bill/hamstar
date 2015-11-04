@@ -2,8 +2,8 @@
 
 `Hamstar.update_having` is a `module_function` that works just like [Hamster update_in()](https://github.com/hamstergem/hamster#transformations) but with three additional ways to select container elements:
 
-1. the associative selector denoted by an array containing a key and a value e.g. `[:name,'Chris']`
-2. the Kleene star operator denoted by `'*'`
+1. the Kleene star operator denoted by `'*'`
+2. the associative selector denoted by an array containing a key and a value e.g. `[:name,'Chris']` your values will be compared to this one using the case comparison operator `===` so you can use Strings or regexps or other things that define `===` (such as classes and Ranges)
 3. generalized `Proc`-based matching e.g. you can supply a lambda directly in the path specification
 
 ## Installation
@@ -53,10 +53,17 @@ Hamstar.update_having( x, [:name,'Pat'],:name){|name| 'Patsy'}
 => Hamster::Vector[Hamster::Hash[:name => "Chris", :hobbies => Hamster::Vector["clarinet"]], Hamster::Hash[:name => "Patsy", :hobbies => Hamster::Vector["bird watching", "rugby"]]]
 ```
 
-Finally, you can use a `Proc` as a matcher. Here's an example that supplies a lambda inline:
+Note that your values will be compared to the second element of the pair using the case comparison operator `===`. That means you can use a Regexp there (or any other object that defines `===`) e.g.:
 
 ```ruby
-Hamstar.update_having( x, ->(k,v){v[:name] == 'Pat'},:name){|name| 'Patsy'}
+Hamstar.update_having( x, [:name,/P/],:name){|name| name+'sy'}
+=> (same result as before)
+```
+
+Finally, if none of the options given above work for you, you can use an arbitrary `Proc` as a matcher. Here's an example that supplies a lambda inline:
+
+```ruby
+Hamstar.update_having( x, ->(k,v){k.odd?},:name){|name| 'Patsy'}
  => Hamster::Vector[Hamster::Hash[:name => "Chris", :hobbies => Hamster::Vector["clarinet"]], Hamster::Hash[:name => "Patsy", :hobbies => Hamster::Vector["bird watching", "rugby"]]]
 ```
 

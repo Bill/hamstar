@@ -19,9 +19,12 @@ RSpec.describe Hamstar do
     [ [{a:1},{a:2}],['*',:a],  ->(v){v+1}, [{a:2},{a:3}], 'Hash inside Vector']
   ]
 
+  cph = [{name:'Chris'},{name:'Pat'}]
+  addsy = ->(name){name+'sy'}
   examples_associative = [
-    [ [{name:'Chris'},{name:'Pat'}],  [[:name,'Pat'],:name],->(name){name+'sy'}, [{name:'Chris'},{name:'Patsy'}],  'match a Hash'],
-    [ [[:name,'Chris'],[:name,'Pat']],[[1,'Pat'],1],        ->(name){name+'sy'}, [[:name,'Chris'],[:name,'Patsy']],'match a Vector']
+    [ cph,             [[:name,'Pat'],:name],        addsy, [{name:'Chris'},{name:'Patsy'}],  'match a Hash'],
+    [ [[:name,'Chris'],[:name,'Pat']],[[1,'Pat'],1], addsy, [[:name,'Chris'],[:name,'Patsy']],'match a Vector'],
+    [ cph,             [[:name,/P/],:name],          addsy, [{name:'Chris'},{name:'Patsy'}],  'match a Hash w/ a regexp']
   ]
 
   examples_function_match = [

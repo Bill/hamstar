@@ -15,7 +15,7 @@ module Hamstar
     matcher = match_path[0]
     case matcher
     when KLEENE_STAR; match ->(k,v){true}, c, *match_path, &block
-    when Array, Hamster::Vector; match ->(k,v){key,value=matcher; v[key] == value}, c, *match_path, &block
+    when Array, Hamster::Vector; match ->(k,v){key,value=matcher; value === v[key]}, c, *match_path, &block
     when Proc; match matcher, c, *match_path, &block
     else
       if match_path.size == 1
